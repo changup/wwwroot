@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<script language="JavaScript">
+		/* 演示h5的本次存储功能
+		 */		
+		function $(id) {
+			return document.getElementById(id);
+		}
+				
+		function test_canLocalStorage() {
+			if(window.localStorage) {
+				$("msg").innerText = "支持localStorage功能！";
+			}
+			else {
+				$("msg").innerText = "不支持localStorage功能！"
+			}
+		}
+		
+		//字符串测试
+		function test_addItem(key,value) {
+			window.localStorage.setItem(key, value);
+		}
+		function test_getItem(key) {
+			var val = window.localStorage.getItem(key);
+			$("msg").innerText = "getItem = " + val;
+		}
+		
+		//存储对象
+		function test_addObj(key) {
+			var user = {
+				username : "changym",
+				sex : "男",
+				age : 32
+			};
+			
+			window.localStorage.setItem(key, JSON.stringify(user));			
+		}
+		function test_getObj(key) {
+			var user = JSON.parse(window.localStorage.getItem(key));
+			$("msg").innerText = user.username + "," + user.sex + "," + user.age;
+		}
+		
+	</script>
+	<body>
+		<div id="toolbar">
+			<button onclick="test_canLocalStorage()">是否支持localStorage</button><br>
+			
+			<button onclick="test_addItem('username','changym')">addItemString</button>
+			<button onclick="test_getItem('username')">getItemString</button>
+			<button onclick="window.localStorage.removeItem('username')">delItemString</button><br>
+			
+			<button onclick="test_addObj('username','chenjx')">addItemObj</button>
+			<button onclick="test_getObj('username')">getItemObj</button>
+		</div>
+		<div id="msg"></div>
+	</body>
+</html>
